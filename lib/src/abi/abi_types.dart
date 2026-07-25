@@ -164,16 +164,20 @@ class StaticArrayType extends ArrayType {
 
   @override
   dynamic decode(List<int> encoded, [int offset = 0]) {
-    var result = [];
-    for (var i = 0; i < size; i++) {
-      result.add(elementType.decode(
-          encoded, offset + i * (elementType.getFixedSize() as int)));
-    }
-    return result;
+    return decodeTuple(encoded, offset, size);
+  }
+
+  @override
+  bool isDynamicType() {
+    // A fixed-length array is itself dynamic when its elements are.
+    return elementType.isDynamicType();
   }
 
   @override
   int? getFixedSize() {
+    if (isDynamicType()) {
+      return AbiType.int32Size;
+    }
     return elementType.getFixedSize() * size;
   }
 }
@@ -288,11 +292,6 @@ class Bytes32Type extends AbiType {
 
   @override
   List<int> encode(var value) {
-    if (value is num) {
-      var bigInt = BigInt.from(value);
-      return IntType.encodeIntBig(bigInt);
-    }
-
     List<int> bytes;
     if (value is String) {
       bytes = HEX.decode(value.startsWith('0x') ? value.substring(2) : value);
@@ -312,6 +311,12 @@ class Bytes32Type extends AbiType {
 
   @override
   dynamic decode(List<int> encoded, [int offset = 0]) {
+    for (var i = size; i < AbiType.int32Size; i++) {
+      if (encoded[offset + i] != 0) {
+        throw ZnnSdkException(
+            'non-zero padding in ${getCanonicalName()} word');
+      }
+    }
     var l = List.filled(size, 0, growable: true);
     BytesUtils.arraycopy(encoded, offset, l, 0, size);
     return l;

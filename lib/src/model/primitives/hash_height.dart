@@ -18,6 +18,9 @@ class HashHeight extends Equatable {
     height = _validateHeight(json['height']);
   }
 
+  // Dart ints are signed 64-bit, so values above 2^63-1 are unrepresentable
+  // and heights that would overflow arrive here negative; rejecting negatives
+  // therefore bounds heights to [0, 2^63).
   static int _validateHeight(int height) {
     if (height < 0) {
       throw ArgumentError('height must be a non-negative 64-bit integer');

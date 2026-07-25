@@ -75,6 +75,29 @@ class EncryptedFile {
     if (crypto!.cipherData == null || crypto!.nonce == null) {
       throw WalletException('Malformed key file: missing cipher data');
     }
+    var params = crypto!.argon2Params!;
+    var hashLength = params.hashLength ?? argon2DefaultHashLength;
+    if (hashLength != argon2DefaultHashLength) {
+      throw WalletException(
+          'Unsupported key file KDF hash length ($hashLength); '
+          'aes-256-gcm requires a 32-byte key');
+    }
+    var timeCost = params.timeCost ?? argon2DefaultTimeCost;
+    if (timeCost < 1 || timeCost > 0xffffff) {
+      throw WalletException('Invalid key file KDF time cost ($timeCost)');
+    }
+    var parallelism = params.parallelism ?? argon2DefaultParallelism;
+    if (parallelism < 1 || parallelism > 255) {
+      throw WalletException(
+          'Invalid key file KDF parallelism ($parallelism)');
+    }
+    // Bound memory to [8 KiB per lane, 4 GiB] so a malformed or hostile key
+    // file cannot request pathological KDF resources.
+    var memoryCost = params.memoryCost ?? argon2DefaultMemoryCostKiB;
+    if (memoryCost < 8 * parallelism || memoryCost > 4 * 1024 * 1024) {
+      throw WalletException(
+          'Invalid key file KDF memory cost ($memoryCost KiB)');
+    }
   }
 
   Future<List<int>> decrypt(String password) async {

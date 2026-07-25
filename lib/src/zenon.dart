@@ -44,6 +44,17 @@ class Zenon {
     subscribe.setClient(wsClient);
   }
 
+  /// Routes every API namespace through [client], e.g. an [HttpRpcClient].
+  ///
+  /// Pass [wsClient] to restore the default WebSocket transport. Note that
+  /// the subscribe API only functions over a WebSocket-backed client.
+  void setClient(Client client) {
+    ledger.setClient(client);
+    stats.setClient(client);
+    embedded.setClient(client);
+    subscribe.setClient(client);
+  }
+
   Future<AccountBlockTemplate> send(AccountBlockTemplate transaction,
       {WalletAccount? currentKeyPair, void Function(PowStatus)? generatingPowCallback, waitForRequiredPlasma = false}) async {
     currentKeyPair ??= defaultKeyPair;
