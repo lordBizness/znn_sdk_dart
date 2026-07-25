@@ -10,12 +10,19 @@ class HashHeight extends Equatable {
 
   HashHeight(Hash hash, int height) {
     this.hash = hash;
-    this.height = height;
+    this.height = _validateHeight(height);
   }
 
   HashHeight.fromJson(Map<String, dynamic> json) {
     hash = Hash.parse(json['hash']);
-    height = json['height'];
+    height = _validateHeight(json['height']);
+  }
+
+  static int _validateHeight(int height) {
+    if (height < 0) {
+      throw ArgumentError('height must be a non-negative 64-bit integer');
+    }
+    return height;
   }
 
   Map<String, dynamic> toJson() {

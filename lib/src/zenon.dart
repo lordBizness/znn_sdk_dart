@@ -51,6 +51,15 @@ class Zenon {
     return BlockUtils.send(transaction, currentKeyPair, generatingPowCallback: generatingPowCallback, waitForRequiredPlasma: waitForRequiredPlasma);
   }
 
+  /// Prepares [transaction] for publishing (autofill, plasma/PoW, hash,
+  /// signature) without sending it to the network.
+  Future<AccountBlockTemplate> prepareBlock(AccountBlockTemplate transaction,
+      {WalletAccount? currentKeyPair, void Function(PowStatus)? generatingPowCallback, waitForRequiredPlasma = false}) async {
+    currentKeyPair ??= defaultKeyPair;
+    if (currentKeyPair == null) throw noKeyPairSelectedException;
+    return BlockUtils.prepare(transaction, currentKeyPair, generatingPowCallback: generatingPowCallback, waitForRequiredPlasma: waitForRequiredPlasma);
+  }
+
   Future<bool> requiresPoW(AccountBlockTemplate transaction, {WalletAccount? blockSigningKey}) async {
     blockSigningKey ??= defaultKeyPair;
     return BlockUtils.requiresPoW(transaction, blockSigningKey: blockSigningKey);
