@@ -76,6 +76,9 @@ class EncryptedFile {
       throw WalletException('Malformed key file: missing cipher data');
     }
     var params = crypto!.argon2Params!;
+    if (params.salt!.isEmpty) {
+      throw WalletException('Malformed key file: empty KDF salt');
+    }
     var hashLength = params.hashLength ?? argon2DefaultHashLength;
     if (hashLength != argon2DefaultHashLength) {
       throw WalletException(

@@ -144,8 +144,11 @@ void _generatePowFunction(_GeneratePowFunctionArguments args) {
 // Returns a hex representation of nonce.
 // Runs single threaded, with native c code.
 Future<String> generatePoW(Hash hash, int? difficulty) async {
+  if (difficulty == null) {
+    throw ArgumentError('difficulty must not be null');
+  }
   if (_powProvider != null) {
-    return _powProvider!(hash, difficulty!);
+    return _powProvider!(hash, difficulty);
   }
   if (_generatePoWFunction == null) {
     initializePoWLinks();

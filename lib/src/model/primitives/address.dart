@@ -53,6 +53,9 @@ class Address {
   List<int>? core;
 
   Address(String hrp, List<int> core) {
+    if (hrp != prefix) {
+      throw ArgumentError('invalid address prefix $hrp; expected $prefix');
+    }
     if (core.length != coreSize) {
       throw ArgumentError(
           'invalid address core length ${core.length}; expected $coreSize');

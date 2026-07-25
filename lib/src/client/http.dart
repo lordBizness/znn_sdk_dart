@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io' as io;
 
@@ -11,11 +12,13 @@ import 'package:znn_sdk_dart/src/client/interfaces.dart';
 /// HTTP endpoint.
 class HttpRpcClient implements Client {
   final Uri url;
+  final Duration timeout;
   final io.HttpClient _httpClient = io.HttpClient();
   int _requestId = 0;
   bool _closed = false;
 
-  HttpRpcClient(String url) : url = Uri.parse(url);
+  HttpRpcClient(String url, {this.timeout = const Duration(seconds: 30)})
+      : url = Uri.parse(url);
 
   void stop() {
     _closed = true;
@@ -36,21 +39,14 @@ class HttpRpcClient implements Client {
 
     Map<String, dynamic> body;
     try {
-      var request = await _httpClient.postUrl(url);
-      request.headers.contentType = io.ContentType.json;
-      request.write(jsonEncode(payload));
-      var response = await request.close();
-      var text = await response.transform(utf8.decoder).join();
-      if (response.statusCode != io.HttpStatus.ok) {
-        throw RpcError(
-            method: method,
-            params: parameters,
-            message: 'HTTP ${response.statusCode}',
-            data: text);
-      }
-      body = jsonDecode(text) as Map<String, dynamic>;
+      body = await _post(method, parameters, payload).timeout(timeout);
     } on io.SocketException {
       throw noConnectionException;
+    } on TimeoutException {
+      throw RpcError(
+          method: method,
+          params: parameters,
+          message: 'Request timed out after ${timeout.inMilliseconds} ms');
     }
 
     if (body.containsKey('error') && body['error'] != null) {
@@ -63,5 +59,34 @@ class HttpRpcClient implements Client {
           data: error['data']);
     }
     return body['result'];
+  }
+
+  Future<Map<String, dynamic>> _post(
+      String method, dynamic parameters, Map<String, dynamic> payload) async {
+    var request = await _httpClient.postUrl(url);
+    request.headers.contentType = io.ContentType.json;
+    request.write(jsonEncode(payload));
+    var response = await request.close();
+    var text = await response.transform(utf8.decoder).join();
+    if (response.statusCode != io.HttpStatus.ok) {
+      throw RpcError(
+          method: method,
+          params: parameters,
+          message: 'HTTP ${response.statusCode}',
+          data: text);
+    }
+    try {
+      var decoded = jsonDecode(text);
+      if (decoded is! Map<String, dynamic>) {
+        throw const FormatException('response is not a JSON object');
+      }
+      return decoded;
+    } on FormatException catch (e) {
+      throw RpcError(
+          method: method,
+          params: parameters,
+          message: 'Malformed JSON-RPC response: ${e.message}',
+          data: text);
+    }
   }
 }
