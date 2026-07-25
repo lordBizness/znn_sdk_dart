@@ -84,8 +84,8 @@ AccountBlockTemplate collectReward()
 
 Builds a `CollectReward` call (encoded with the common ABI, `Definitions.common`) that claims the sender's uncollected rewards.
 
-:::note Changed in the spec conformance fixes
-The stake ABI definition (`Definitions.stake`) previously omitted the `Update` and `CollectReward` functions; they are now included so the local ABI matches the node's contract. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+The stake ABI definition (`Definitions.stake`) previously omitted the `Update` and `CollectReward` functions; they are now included so the local ABI matches the node's contract. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## Examples

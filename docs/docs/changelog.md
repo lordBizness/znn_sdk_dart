@@ -1,9 +1,16 @@
 ---
 sidebar_position: 5
-title: Spec conformance fixes
+title: Changelog
 ---
 
-# Spec conformance fixes
+# Changelog
+
+Notable SDK changes are recorded here. API details and usage guidance remain
+in their corresponding reference and guide sections.
+
+## 1.0.0
+
+### Spec conformance and hardening
 
 A hardening pass
 ([PR #23](https://github.com/zenon-network/znn_sdk_dart/pull/23)) that
@@ -14,7 +21,7 @@ are normalized, and malformed inputs fail loudly instead of producing
 corrupt data. This page summarizes what changed and what to check when
 upgrading.
 
-## ABI encoding and decoding
+#### ABI encoding and decoding
 
 The ABI layer (`Abi`, [reference](/api/abi)) previously accepted and
 produced non-canonical data in several cases. It is now strict:
@@ -41,7 +48,7 @@ arguments) against the definition and returns a `DecodedCall` with the
 function `name` and decoded `args` — useful for decoding blocks addressed
 to embedded contracts.
 
-## Embedded contract definitions
+#### Embedded contract definitions
 
 The SDK's local contract ABIs were missing functions the node accepts.
 Added: `Update`, `DepositQsr`, `WithdrawQsr` and `CollectReward` on
@@ -49,7 +56,7 @@ Added: `Update`, `DepositQsr`, `WithdrawQsr` and `CollectReward` on
 `Update` and `CollectReward` on [Stake](/api/embedded/stake); `Update` on
 the [Accelerator](/api/embedded/accelerator).
 
-## RPC transport
+#### RPC transport
 
 - **`HttpRpcClient`** — a new JSON-RPC 2.0 client over HTTP/HTTPS, plus
   `Zenon.setClient` to route all API namespaces through any client. See
@@ -66,7 +73,7 @@ the [Accelerator](/api/embedded/accelerator).
 - **Reconnects** — the WebSocket retry delay dropped from five seconds to
   one.
 
-## Transactions
+#### Transactions
 
 - **`Zenon.prepareBlock`** / **`BlockUtils.prepare`** — autofill, attach
   plasma or PoW, hash and sign a block without publishing it. See
@@ -74,7 +81,7 @@ the [Accelerator](/api/embedded/accelerator).
 - **`BlockUtils.isReceiveBlock`** — fixed a bug where `contractReceive`
   blocks were not recognized (the enum was compared instead of its index).
 
-## Proof of work
+#### Proof of work
 
 - **`setPowProvider` / `clearPowProvider`** — route PoW generation through a
   custom backend (isolate pool, remote worker) instead of the bundled
@@ -84,7 +91,7 @@ the [Accelerator](/api/embedded/accelerator).
 
 See [proof of work](/api/pow).
 
-## Wallet key files
+#### Wallet key files
 
 - Key files now store their Argon2id parameters (`timeCost`, `memoryCost`,
   `hashLength`, `parallelism`) instead of assuming hardcoded defaults, and
@@ -98,7 +105,7 @@ See [proof of work](/api/pow).
 
 See [wallets](/guides/wallets).
 
-## Primitive validation
+#### Primitive validation
 
 - `Address` — the constructor and `Address.parse` validate the bech32 HRP
   (`z`) and the 20-byte core length.
@@ -109,19 +116,19 @@ See [wallets](/guides/wallets).
 - `GetRequiredParam.fromJson` tolerates integer `blockType` and null
   `toAddress`/`data`.
 
-## Network identifier
+#### Network identifier
 
 `setNetworkId` / `getNetworkId` track the connected node's network
 identifier alongside the existing chain identifier — see
 [connecting to a node](/guides/connecting).
 
-## Deprecations
+#### Deprecations
 
 - `PlasmaApi.getRequiredFusionAmount` — the node does not serve
   `embedded.plasma.getRequiredFusionAmount`; use
   [`getPlasmaByQsr`](/api/embedded/plasma) for the client-side conversion.
 
-## Upgrade notes
+#### Upgrade notes
 
 The fixes are behavior-preserving for well-formed inputs, but code that
 relied on lax behavior will now see exceptions:

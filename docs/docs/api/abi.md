@@ -55,8 +55,8 @@ class DecodedCall {
 }
 ```
 
-:::note Added in the spec conformance fixes
-`decodeCallData` decodes full calldata like `decodeFunction`, but also tells you *which* function was called: it returns a `DecodedCall` carrying the matched function `name` and its decoded `args`. It throws a `ZnnSdkException` when no ABI function matches the calldata selector. This is the convenient entry point for inspecting the `data` of account blocks sent to embedded contracts. See [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+`decodeCallData` decodes full calldata like `decodeFunction`, but also tells you *which* function was called: it returns a `DecodedCall` carrying the matched function `name` and its decoded `args`. It throws a `ZnnSdkException` when no ABI function matches the calldata selector. This is the convenient entry point for inspecting the `data` of account blocks sent to embedded contracts. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## Supported types
@@ -82,7 +82,7 @@ Static types occupy one 32-byte word; `bytes`, `string`, dynamic arrays — and 
 
 ## Validation and error behavior
 
-:::note Changed in the spec conformance fixes
+:::note Changed in 1.0.0
 The encoder and decoder were hardened to match the node's ABI semantics; all of the following throw a descriptive `ZnnSdkException` instead of the bare `Error()` the previous implementation used:
 
 - **Strict argument count**: `encodeFunction` requires exactly as many arguments as the function declares (previously, too few arguments were silently accepted).
@@ -92,7 +92,7 @@ The encoder and decoder were hardened to match the node's ABI semantics; all of 
 - **Canonical booleans**: `bool` accepts only a Dart `bool` on encode (the strings `'true'`/`'false'` are no longer accepted) and only decodes the canonical words 0 and 1 (any other word is rejected).
 - **Fixed-size arrays of dynamic elements**: `T[N]` where `T` is dynamic (e.g. `string[2]`) is now correctly treated as a dynamic type and encoded/decoded by offset.
 
-See [the spec conformance fixes](/spec-conformance).
+See [the 1.0.0 changelog](/changelog).
 :::
 
 ## Example
@@ -123,6 +123,6 @@ void main() {
 }
 ```
 
-:::note Changed in the spec conformance fixes
-The bundled `Definitions` ABIs were completed to cover every function the embedded contracts accept: `Update`, `DepositQsr`, `WithdrawQsr`, and `CollectReward` were added to the Pillar and Sentinel definitions, `Update` and `CollectReward` to the Stake definition, and `Update` to the Accelerator-Z definition, so calldata for those methods can now be decoded. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+The bundled `Definitions` ABIs were completed to cover every function the embedded contracts accept: `Update`, `DepositQsr`, `WithdrawQsr`, and `CollectReward` were added to the Pillar and Sentinel definitions, `Update` and `CollectReward` to the Stake definition, and `Update` to the Accelerator-Z definition, so calldata for those methods can now be decoded. See [the 1.0.0 changelog](/changelog).
 :::

@@ -9,8 +9,8 @@ Accessed via `zenon.embedded.accelerator`.
 
 The Accelerator-Z embedded contract funds ecosystem development. Projects are submitted with `ZNN`/`QSR` funding targets, voted on by Pillars, and paid out phase by phase.
 
-:::note Changed in the spec conformance fixes
-The Accelerator-Z ABI definition gained the `Update` function, so calldata for that contract method can now be decoded. In addition, `Phase.toJson` now emits the node's nested `{"phase": {...}, "votes": {...}}` shape (with the `projectID` key), `Project.toJson` emits a proper `phaseIds` list plus `votes` and `phases`, and `ProjectList.findProjectByPhaseId` no longer loops forever when the phase id is not in the first project. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+The Accelerator-Z ABI definition gained the `Update` function, so calldata for that contract method can now be decoded. In addition, `Phase.toJson` now emits the node's nested `{"phase": {...}, "votes": {...}}` shape (with the `projectID` key), `Project.toJson` emits a proper `phaseIds` list plus `votes` and `phases`, and `ProjectList.findProjectByPhaseId` no longer loops forever when the phase id is not in the first project. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## Methods
@@ -46,8 +46,8 @@ Returns a paginated `ProjectList` (`count` plus `list` of `Project`). Each `Proj
 
 `ProjectList` also offers client-side lookups: `findId(Hash id)` and `findProjectByPhaseId(Hash id)`.
 
-:::note Changed in the spec conformance fixes
-`ProjectList.findProjectByPhaseId` previously incremented the wrong loop variable and could hang; it now iterates phase ids correctly. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+`ProjectList.findProjectByPhaseId` previously incremented the wrong loop variable and could hang; it now iterates phase ids correctly. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## getProjectById

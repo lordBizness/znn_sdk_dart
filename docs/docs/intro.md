@@ -30,8 +30,8 @@ proof-of-work handling, and transaction construction and signing.
 
 ## Versions
 
-These docs describe `znn_sdk_dart` v1.0.0 including the
-[spec conformance fixes](/spec-conformance) — a hardening pass that aligns
+These docs describe `znn_sdk_dart` v1.0.0 including its
+[spec conformance and hardening pass](/changelog) — it aligns
 the SDK's ABI handling, RPC transport, embedded contract definitions and
 wallet key files with the behavior of the Zenon node. If you are upgrading
 from an earlier release, read that page first: several APIs now validate

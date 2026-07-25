@@ -9,8 +9,8 @@ Accessed via `zenon.embedded.bridge`.
 
 The bridge embedded contract moves assets between Zenon and external networks. Wrapping locks a ZTS token on Zenon and mints it on the destination network; unwrapping burns or locks it there and redeems it back on Zenon. The contract is operated by an orchestrator network and protected by guardians and an administrator.
 
-:::note Changed in the spec conformance fixes
-`getSecurityInfo`, `getTimeChallengesInfo`, and `getBridgeInfo` now send an explicit empty params list (`[]`) instead of omitting the `params` field, which some nodes reject. `getAllNetworks` previously ignored its `pageSize` argument and always sent `rpcMaxPageSize`; it now passes `pageSize` through. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+`getSecurityInfo`, `getTimeChallengesInfo`, and `getBridgeInfo` now send an explicit empty params list (`[]`) instead of omitting the `params` field, which some nodes reject. `getAllNetworks` previously ignored its `pageSize` argument and always sent `rpcMaxPageSize`; it now passes `pageSize` through. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## Methods

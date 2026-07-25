@@ -50,13 +50,13 @@ print('saved: ${definition.walletId}');
 The file stores the wallet entropy encrypted with AES-256-GCM under an
 Argon2id-derived key, together with metadata (wallet type and base address).
 
-:::note Changed in the spec conformance fixes
+:::note Changed in 1.0.0
 Key files now record their Argon2id parameters (`timeCost`, `memoryCost`,
 `hashLength`, `parallelism`) instead of assuming hardcoded values, and
 decryption validates the file's version, KDF, cipher and parameter bounds
 before running the KDF. Legacy files without stored parameters still decrypt
 using the historical defaults; check `EncryptedFile.needsUpgrade` and
-re-save to upgrade them. See [the spec conformance fixes](/spec-conformance).
+re-save to upgrade them. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## Unlock a wallet
@@ -73,7 +73,7 @@ Zenon().defaultKeyPair = wallet.getKeyPair(0);
 
 A wrong password throws `IncorrectPasswordException`.
 
-:::note Changed in the spec conformance fixes
+:::note Changed in 1.0.0
 `readKeyStore` now verifies that the key file's stored base address matches
 the address derived from the decrypted entropy, and throws
 `WalletException` on mismatch — a corrupted or tampered key file can no
@@ -89,5 +89,5 @@ collector:
 keyPair.clear(); // zeroes private and public key buffers
 ```
 
-`clear()` was added in [the spec conformance fixes](/spec-conformance); a
+`clear()` was added in [the 1.0.0 changelog](/changelog); a
 cleared pair can no longer sign or derive addresses.

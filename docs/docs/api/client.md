@@ -29,8 +29,8 @@ Future<bool> initialize(String url, {bool retry = true})
 
 Connects to the node at `url` (e.g. `ws://127.0.0.1:35998`). Returns `true` once the connection is established. With `retry: true` (the default) the client keeps retrying on connection failure, waiting between attempts; with `retry: false` it returns `false` after the first failed attempt. The connection is health-checked with a ping every 5 seconds.
 
-:::note Changed in the spec conformance fixes
-The delay between reconnection attempts was reduced from 5 seconds to 1 second as part of [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+The delay between reconnection attempts was reduced from 5 seconds to 1 second as part of [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart
@@ -91,14 +91,14 @@ Future sendRequest(String method, [parameters])
 
 Sends a JSON-RPC request and completes with its `result`. Throws `noConnectionException` if the client is closed.
 
-:::note Changed in the spec conformance fixes
-JSON-RPC error responses are now normalized: instead of surfacing the underlying `json_rpc_2` package's exception type, `sendRequest` throws an `RpcError` carrying the failed method, its parameters, and the error code, message and data. Part of [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+JSON-RPC error responses are now normalized: instead of surfacing the underlying `json_rpc_2` package's exception type, `sendRequest` throws an `RpcError` carrying the failed method, its parameters, and the error code, message and data. Part of [the 1.0.0 changelog](/changelog).
 :::
 
 ## HttpRpcClient
 
-:::note Added in the spec conformance fixes
-`HttpRpcClient` is part of [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+`HttpRpcClient` is part of [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart
@@ -137,8 +137,8 @@ zenon.setClient(zenon.wsClient);
 
 ## RpcError
 
-:::note Added in the spec conformance fixes
-`RpcError` is part of [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+`RpcError` is part of [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart

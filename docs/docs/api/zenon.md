@@ -52,8 +52,8 @@ zenon.defaultKeyPair = keyStore.getKeyPair(0);
 
 ## setClient
 
-:::note Added in the spec conformance fixes
-`setClient` is part of [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+`setClient` is part of [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart
@@ -98,8 +98,8 @@ See the [transactions guide](/guides/transactions) for a full walkthrough.
 
 ## prepareBlock
 
-:::note Added in the spec conformance fixes
-`prepareBlock` is part of [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+`prepareBlock` is part of [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart
@@ -141,8 +141,8 @@ int getChainIdentifier()
 
 Gets or sets the chain identifier (default `1`, Alphanet).
 
-:::note Added in the spec conformance fixes
-`setNetworkId` and `getNetworkId` are part of [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+`setNetworkId` and `getNetworkId` are part of [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart

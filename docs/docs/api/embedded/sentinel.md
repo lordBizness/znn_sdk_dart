@@ -102,8 +102,8 @@ AccountBlockTemplate withdrawQsr()
 
 Shared reward and deposit plumbing, encoded with the common ABI (`Definitions.common`). `depositQsr` sends `amount` QSR (base units) to the sentinel contract.
 
-:::note Changed in the spec conformance fixes
-The sentinel ABI definition (`Definitions.sentinel`) previously omitted the `Update`, `DepositQsr`, `WithdrawQsr`, and `CollectReward` functions; they are now included so the local ABI matches the node's contract. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+The sentinel ABI definition (`Definitions.sentinel`) previously omitted the `Update`, `DepositQsr`, `WithdrawQsr`, and `CollectReward` functions; they are now included so the local ABI matches the node's contract. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## Example

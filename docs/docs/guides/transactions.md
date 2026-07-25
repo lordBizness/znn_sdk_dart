@@ -67,8 +67,8 @@ final needsPow = await zenon.requiresPoW(block);
 
 ## Prepare without publishing
 
-:::note Added in the spec conformance fixes
-`prepareBlock` is new — see [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+`prepareBlock` is new — see [the 1.0.0 changelog](/changelog).
 :::
 
 `zenon.prepareBlock` performs steps 1–3 and returns the signed block without

@@ -49,6 +49,6 @@ Token amounts throughout the embedded APIs are `BigInt` values in base units. ZN
 
 Several contracts (pillar, sentinel, stake) expose the same reward and QSR-deposit plumbing: `getUncollectedReward`, `getFrontierRewardByPage`, `getDepositedQsr`, and the `CollectReward`, `DepositQsr`, and `WithdrawQsr` contract methods. The SDK encodes these shared contract methods with the common ABI (`Definitions.common` in `lib/src/embedded/definitions.dart`).
 
-:::note Changed in the spec conformance fixes
-The per-contract ABI definitions previously omitted these shared functions: `Update`, `DepositQsr`, `WithdrawQsr`, and `CollectReward` were missing from the pillar and sentinel definitions, and `Update` and `CollectReward` from the stake definition. They are now included, so the SDK's local ABI definitions match the node's. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+The per-contract ABI definitions previously omitted these shared functions: `Update`, `DepositQsr`, `WithdrawQsr`, and `CollectReward` were missing from the pillar and sentinel definitions, and `Update` and `CollectReward` from the stake definition. They are now included, so the SDK's local ABI definitions match the node's. See [the 1.0.0 changelog](/changelog).
 :::

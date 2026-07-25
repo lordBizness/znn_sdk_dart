@@ -9,8 +9,8 @@ Accessed via `zenon.embedded.liquidity`.
 
 The liquidity embedded contract rewards providers of liquidity: eligible LP tokens can be staked for a chosen duration and earn `ZNN` and `QSR` rewards. Like the bridge, the contract is protected by guardians and an administrator.
 
-:::note Changed in the spec conformance fixes
-`getSecurityInfo`, `getTimeChallengesInfo`, and `getLiquidityInfo` now send an explicit empty params list (`[]`) instead of omitting the `params` field, which some nodes reject. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+`getSecurityInfo`, `getTimeChallengesInfo`, and `getLiquidityInfo` now send an explicit empty params list (`[]`) instead of omitting the `params` field, which some nodes reject. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## Methods

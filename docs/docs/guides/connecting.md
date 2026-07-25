@@ -40,8 +40,8 @@ Shut down cleanly with `zenon.wsClient.stop()`.
 
 ## HTTP
 
-:::note Added in the spec conformance fixes
-`HttpRpcClient` is new — see [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+`HttpRpcClient` is new — see [the 1.0.0 changelog](/changelog).
 :::
 
 For request/response use without subscriptions — CLIs, servers, one-shot
@@ -81,11 +81,11 @@ try {
 }
 ```
 
-:::note Changed in the spec conformance fixes
+:::note Changed in 1.0.0
 Previously WebSocket calls surfaced raw `json_rpc_2` exceptions and the
 reconnect delay was five seconds. Errors are now wrapped in `RpcError` for
 both transports and the retry delay is one second. See
-[the spec conformance fixes](/spec-conformance).
+[the 1.0.0 changelog](/changelog).
 :::
 
 ## Chain and network identifiers

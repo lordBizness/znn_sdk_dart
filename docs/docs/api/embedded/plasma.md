@@ -55,8 +55,8 @@ Future<GetRequiredResponse> getRequiredPoWForAccountBlock(GetRequiredParam powPa
 
 Given a prospective block described by a `GetRequiredParam` (`address`, `blockType`, optional `toAddress`, optional `data`), returns a `GetRequiredResponse` with `availablePlasma`, `basePlasma`, and `requiredDifficulty` — the PoW difficulty needed to cover any plasma shortfall. This is what `zenon.send(...)` uses internally.
 
-:::note Changed in the spec conformance fixes
-`GetRequiredParam.fromJson` now tolerates an integer `blockType` as well as a string, and accepts `null` for `toAddress` and `data` (its `toJson` likewise emits `null` for missing `data`). Previously it assumed all fields were present and string-typed. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+`GetRequiredParam.fromJson` now tolerates an integer `blockType` as well as a string, and accepts `null` for `toAddress` and `data` (its `toJson` likewise emits `null` for missing `data`). Previously it assumed all fields were present and string-typed. See [the 1.0.0 changelog](/changelog).
 :::
 
 ### getRequiredFusionAmount
@@ -68,7 +68,7 @@ Future<int> getRequiredFusionAmount(int requiredPlasma)
 ```
 
 :::warning Deprecated
-This method issues an `embedded.plasma.getRequiredFusionAmount` request, but the node does not serve that RPC endpoint, so the call fails. Use `getPlasmaByQsr` for the client-side QSR-to-plasma conversion instead. Deprecated in [the spec conformance fixes](/spec-conformance).
+This method issues an `embedded.plasma.getRequiredFusionAmount` request, but the node does not serve that RPC endpoint, so the call fails. Use `getPlasmaByQsr` for the client-side QSR-to-plasma conversion instead. Deprecated in [the 1.0.0 changelog](/changelog).
 :::
 
 ### getPlasmaByQsr

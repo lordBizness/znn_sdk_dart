@@ -43,8 +43,8 @@ Publishes a fully prepared (autofilled, plasma/PoW-attached, signed) account blo
 
 Most applications should use [`zenon.send`](/api/zenon) instead, which prepares the block and then calls this method; use `publishRawTransaction` directly when broadcasting a block prepared earlier with [`zenon.prepareBlock`](/api/zenon). See the [transactions guide](/guides/transactions).
 
-:::note Changed in the spec conformance fixes
-`publishRawTransaction` now throws a `ZnnSdkException` if the node returns an unexpected non-null result (`null` remains the acceptance signal). Part of [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+`publishRawTransaction` now throws a `ZnnSdkException` if the node returns an unexpected non-null result (`null` remains the acceptance signal). Part of [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart

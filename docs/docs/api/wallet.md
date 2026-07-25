@@ -93,8 +93,8 @@ Future<bool> verify(List<int> signature, List<int> message)
 void clear()
 ```
 
-:::note Added in the spec conformance fixes
-`KeyPair.clear()` zeroes the private and public key byte lists in place and then drops all references, including the cached address. The pair is unusable afterwards; signing or address derivation will fail. Call it when you are done with a key pair so key material does not linger in memory. See [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+`KeyPair.clear()` zeroes the private and public key byte lists in place and then drops all references, including the cached address. The pair is unusable afterwards; signing or address derivation will fail. Call it when you are done with a key pair so key material does not linger in memory. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## KeyStoreManager
@@ -123,8 +123,8 @@ Future<KeyStoreDefinition> createFromMnemonic(String mnemonic, String passphrase
 
 `KeyStoreDefinition` implements `WalletDefinition` and wraps the on-disk `File`; `walletId` is the file path and `walletName` its basename. The keystore file stores the encrypted entropy plus two metadata keys: `baseAddress` (the address of account 0) and `walletType` (`keystore`). `readKeyStore` throws a `WalletException` for a missing file or an unsupported wallet type, and an `IncorrectPasswordException` for a wrong password.
 
-:::note Changed in the spec conformance fixes
-`readKeyStore` now verifies the stored `baseAddress` metadata against the address actually derived from the decrypted entropy, and throws a `WalletException` on mismatch. This detects corrupted or tampered keystore files whose metadata no longer matches the key material. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+`readKeyStore` now verifies the stored `baseAddress` metadata against the address actually derived from the decrypted entropy, and throws a `WalletException` on mismatch. This detects corrupted or tampered keystore files whose metadata no longer matches the key material. See [the 1.0.0 changelog](/changelog).
 :::
 
 ### Save and read a keystore
@@ -166,7 +166,7 @@ Map<String, dynamic> toJson()
 
 `decrypt` throws `IncorrectPasswordException` when GCM authentication fails.
 
-:::note Changed in the spec conformance fixes
+:::note Changed in 1.0.0
 Key files are now self-describing: `encrypt` stores the Argon2id KDF parameters (`timeCost`, `memoryCost`, `hashLength`, `parallelism`) alongside the salt, and `decrypt` uses the stored parameters instead of hard-coded values. Legacy files without stored parameters fall back to the defaults `timeCost` 1, `memoryCost` 65536 KiB, `hashLength` 32, `parallelism` 4 (exposed as the constants `argon2DefaultTimeCost`, `argon2DefaultMemoryCostKiB`, `argon2DefaultHashLength`, `argon2DefaultParallelism`).
 
 A new getter reports whether a file predates self-describing parameters and should be re-encrypted:
@@ -175,7 +175,7 @@ A new getter reports whether a file predates self-describing parameters and shou
 bool get needsUpgrade
 ```
 
-`decrypt` also strictly validates the file before deriving any key, throwing a `WalletException` for an unsupported `version` (only 1 is accepted), KDF (only `argon2.IDKey`), or cipher (only `aes-256-gcm`), for missing salt, nonce, or cipher data, and for out-of-bounds KDF parameters (`hashLength` must be 32; `timeCost` in `[1, 0xffffff]`; `parallelism` in `[1, 255]`; `memoryCost` in `[8 * parallelism, 4194304]` KiB), so a malformed or hostile key file cannot request pathological KDF resources. See [the spec conformance fixes](/spec-conformance).
+`decrypt` also strictly validates the file before deriving any key, throwing a `WalletException` for an unsupported `version` (only 1 is accepted), KDF (only `argon2.IDKey`), or cipher (only `aes-256-gcm`), for missing salt, nonce, or cipher data, and for out-of-bounds KDF parameters (`hashLength` must be 32; `timeCost` in `[1, 0xffffff]`; `parallelism` in `[1, 255]`; `memoryCost` in `[8 * parallelism, 4194304]` KiB), so a malformed or hostile key file cannot request pathological KDF resources. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## Mnemonic

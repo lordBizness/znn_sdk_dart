@@ -29,8 +29,8 @@ static Address fromPublicKey(List<int> publicKey)
 static bool isValid(String address)
 ```
 
-:::note Changed in the spec conformance fixes
-`Address.parse` now validates that the bech32 human-readable part is exactly `z` and that the decoded core is exactly 20 bytes, and the `Address(hrp, core)` constructor validates the core length; both throw an `ArgumentError` on violation. Previously a well-formed bech32 string with the wrong prefix or length could produce a corrupt `Address`. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+`Address.parse` now validates that the bech32 human-readable part is exactly `z` and that the decoded core is exactly 20 bytes, and the `Address(hrp, core)` constructor validates the core length; both throw an `ArgumentError` on violation. Previously a well-formed bech32 string with the wrong prefix or length could produce a corrupt `Address`. See [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart
@@ -92,8 +92,8 @@ Map<String, dynamic> toJson()
 List<int> getBytes() // hash bytes ++ big-endian 8-byte height
 ```
 
-:::note Changed in the spec conformance fixes
-Both the constructor and `HashHeight.fromJson` now validate that `height` is non-negative, throwing an `ArgumentError` otherwise. Dart ints are signed 64-bit, so heights that would overflow arrive negative; rejecting negatives bounds heights to `[0, 2^63)`. See [the spec conformance fixes](/spec-conformance).
+:::note Changed in 1.0.0
+Both the constructor and `HashHeight.fromJson` now validate that `height` is non-negative, throwing an `ArgumentError` otherwise. Dart ints are signed 64-bit, so heights that would overflow arrive negative; rejecting negatives bounds heights to `[0, 2^63)`. See [the 1.0.0 changelog](/changelog).
 :::
 
 ## TokenStandard

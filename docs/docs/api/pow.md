@@ -39,8 +39,8 @@ await zenon.send(tx, generatingPowCallback: (status) {
 bool verifyPoW(Hash dataHash, int difficulty, String nonce)
 ```
 
-:::note Added in the spec conformance fixes
-Verifies that a hex `nonce` (8 bytes) satisfies `difficulty` for `dataHash`, mirroring the node's `pow.CheckPoWNonce`: it computes `sha3-256(nonce || dataHash)` and compares the first 8 bytes of the digest, interpreted in little-endian order, against the threshold `2^64 - 2^64 / difficulty`. Returns `true` when the nonce meets or exceeds the threshold. Throws an `ArgumentError` if the nonce is not exactly 8 bytes or the difficulty is negative. Use it to validate nonces produced by a custom PoW backend before publishing. See [the spec conformance fixes](/spec-conformance).
+:::note Added in 1.0.0
+Verifies that a hex `nonce` (8 bytes) satisfies `difficulty` for `dataHash`, mirroring the node's `pow.CheckPoWNonce`: it computes `sha3-256(nonce || dataHash)` and compares the first 8 bytes of the digest, interpreted in little-endian order, against the threshold `2^64 - 2^64 / difficulty`. Returns `true` when the nonce meets or exceeds the threshold. Throws an `ArgumentError` if the nonce is not exactly 8 bytes or the difficulty is negative. Use it to validate nonces produced by a custom PoW backend before publishing. See [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart
@@ -50,7 +50,7 @@ assert(verifyPoW(powData, difficulty, nonce));
 
 ## Custom PoW backends
 
-:::note Added in the spec conformance fixes
+:::note Added in 1.0.0
 PoW generation can be routed through a custom backend — for example an isolate pool, a GPU worker, or a remote PoW service — instead of the bundled native library:
 
 ```dart
@@ -60,7 +60,7 @@ void setPowProvider(PowProvider provider)
 void clearPowProvider()
 ```
 
-After `setPowProvider`, every `generatePoW` call (including the ones `zenon.send(...)` makes internally) invokes the provider and expects the hex nonce back. `clearPowProvider` restores the default native backend. See [the spec conformance fixes](/spec-conformance).
+After `setPowProvider`, every `generatePoW` call (including the ones `zenon.send(...)` makes internally) invokes the provider and expects the hex nonce back. `clearPowProvider` restores the default native backend. See [the 1.0.0 changelog](/changelog).
 :::
 
 ```dart
