@@ -32,12 +32,14 @@ See the [wallet API reference](/api/wallet) for `KeyStore.fromSeed`,
 
 ## Save an encrypted key file
 
-`Zenon().keyStoreManager` manages key files in the platform's default wallet
-directory (the same directory Syrius uses):
+`KeyStoreManager` manages key files in the platform's default wallet
+directory (the same directory Syrius uses). `Zenon().keyStoreManager` holds
+one, but exposes it through the generic `WalletManager` interface — for the
+keystore-specific methods below, work with a typed instance:
 
 ```dart
-final zenon = Zenon();
-final definition = await zenon.keyStoreManager.saveKeyStore(
+final manager = KeyStoreManager(walletPath: znnDefaultWalletDirectory);
+final definition = await manager.saveKeyStore(
   keyStore,
   'a strong password',
   name: 'my-wallet',
@@ -60,13 +62,13 @@ re-save to upgrade them. See [the spec conformance fixes](/spec-conformance).
 ## Unlock a wallet
 
 ```dart
-final definition = await zenon.keyStoreManager.findKeyStore('my-wallet');
-final wallet = await zenon.keyStoreManager.readKeyStore(
+final definition = await manager.findKeyStore('my-wallet');
+final wallet = await manager.readKeyStore(
   'a strong password',
   definition!.file,
 );
 
-zenon.defaultKeyPair = wallet.getKeyPair(0);
+Zenon().defaultKeyPair = wallet.getKeyPair(0);
 ```
 
 A wrong password throws `IncorrectPasswordException`.

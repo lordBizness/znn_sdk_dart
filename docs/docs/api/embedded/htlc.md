@@ -117,8 +117,13 @@ await zenon.send(block);
 Inspect and unlock an HTLC as the counterparty:
 
 ```dart
+import 'dart:convert';
+
 final zenon = Zenon();
-final id = Hash.parse('b0e0...'); // hash of the creating account block
+// The HTLC id is the hash of the account block that created it.
+final id = Hash.parse(
+    '3fd7f3f2b2c1c31c1b2f5e6a4bfeef8ad35bbb55f7ba09a1e5bfe0f2a4e78f21');
+final preimage = utf8.encode('my secret preimage value');
 
 final info = await zenon.embedded.htlc.getById(id);
 print('Locked ${info.amount} ${info.tokenStandard} until ${info.expirationTime}');

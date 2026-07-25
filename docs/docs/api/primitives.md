@@ -35,7 +35,7 @@ static bool isValid(String address)
 
 ```dart
 var address = Address.parse('z1qqjnwjjpnue8xmmpanz6csze6tcmtzzdtfsww7');
-print(address.toShortString()); // z1qqjnw...sww7
+print(address.toShortString()); // z1qqjnw...tfsww7
 print(Address.isValid('not-an-address')); // false
 ```
 
@@ -59,7 +59,9 @@ The library exports `emptyAddress` (`z1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqsggv2f`) 
 
 ## Hash
 
-An immutable 32-byte SHA3-256 hash (`Hash.length == 32`).
+A 32-byte SHA3-256 hash (`Hash.length == 32`). Note that `Hash.fromBytes`
+retains the list it is given and `getBytes()` returns that same list, so
+treat the underlying bytes as read-only.
 
 ```dart
 Hash.fromBytes(List<int> hash)
